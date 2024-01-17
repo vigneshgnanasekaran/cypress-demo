@@ -4,7 +4,7 @@ describe("example to-do app", () => {
   });
 
   it("checking the opening of the page", () => {
-    cy.url().should("eq", "https://www.undivided.io/pricing/");
+    cy.url().should("eq", "https://www.undivided.io");
     cy.log("hi your welcome ");
   });
 });
