@@ -2,9 +2,7 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@3
 workflows:
-  test:
-    jobs:
-      - cypress/run:
-          install-browsers: true
-          start-command: 'npm run start'
-          cypress-command: 'npx cypress run --browser chrome'
+bulid:
+   jobs:
+    - cypress/run:
+    yarn: ture       
