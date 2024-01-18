@@ -1,35 +1,12 @@
 version: "2.1"
-
 orbs:
   cypress: cypress-io/cypress@3
-
-jobs:
-  cypress-run:
-    docker:
-      - image: cypress/browsers:node14.17.0-chrome91
-    steps:
-      - checkout
-      - cypress/run:
-          command: npx cypress run --browser chrome
-          install-browsers: true
-      - persist_to_workspace:
-          root:  ./cypress/report/html
-          paths:
-            - "/*"
-
-  some-other-job:
-    docker:
-      - image: cypress/browsers:node14.17.0-chrome91
-    steps:
-      - attach_workspace:
-          at:  ./cypress/report/html
-      # Add your steps here, you can now access the artifacts in /path/to/cypress/report/html
-
 workflows:
-  version: 2
   use-my-orb:
     jobs:
-      - cypress-run
-      - some-other-job:
-          requires:
-            - cypress-run
+      - cypress/run:
+          cypress-command: npx cypress run --browser chrome
+          install-browsers: true
+    post-steps:
+      - store_artifacts:
+          path: ./cypress/reports/html
