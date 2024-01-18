@@ -7,6 +7,3 @@ workflows:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
-           
-
-x 
