@@ -7,8 +7,12 @@ workflows:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
+          record: true
+      - build:
+          working_directory: ./
+          steps:
+            - run:
+                name: Creating Dummy Artifacts
 
-      - persist_to_workspace:
-          root: /cypress
-          paths:
-            - reports/html
+            - store_artifacts:
+                path: ./cypress/reports
