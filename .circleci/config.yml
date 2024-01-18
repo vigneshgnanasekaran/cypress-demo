@@ -7,9 +7,4 @@ workflows:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
-
-      - store_test_results:
-          path: cypress/screenshots
-
-      - store_artifacts:
-          path: ./reports
+          add_cypress_artifacts: true
