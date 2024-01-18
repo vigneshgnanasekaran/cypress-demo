@@ -7,6 +7,10 @@ workflows:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
-      
-           
 
+      - store_artifacts:
+          path: cypress/reports
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
