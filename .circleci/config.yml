@@ -1,22 +1,12 @@
 version: "2.1"
 orbs:
   cypress: cypress-io/cypress@3
-
-jobs:
-  cypress-run:
-    docker:
-      - image: cypress/browsers:node12.18.3-chrome87-ff82
-    steps:
-      - checkout
-      - cypress/run:
-          cypress-command: npx cypress run --browser chrome
-          install-browsers: true
-
 workflows:
   use-my-orb:
     jobs:
-      - cypress-run:
-          record: true  # Enable video recording in Cypress
+      - cypress/run:
+          cypress-command: npx cypress run --browser chrome
+          install-browsers: true
+      
+           
 
-      - store_artifacts:
-          path: ./cypress/reports/html
