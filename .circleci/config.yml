@@ -9,4 +9,5 @@ workflows:
       - cypress/run:
           command: npx cypress run --browser chrome
           install-browsers: true
+      - artifacts:
           record: true # Optionally enable recording of test results
