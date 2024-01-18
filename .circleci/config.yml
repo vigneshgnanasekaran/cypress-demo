@@ -7,7 +7,6 @@ workflows:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
- artifacts:
-      paths:
-        - ./reports
-         
+          artifacts:
+            paths:
+              - ./reports
