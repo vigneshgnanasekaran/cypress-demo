@@ -1,14 +1,18 @@
 version: "2.1"
+
 orbs:
   cypress: cypress-io/cypress@3
-workflows:
-  use-my-orb:
-    jobs:
+
+jobs:
+  cypress-run:
+    docker:
+      - image: cypress/browsers:node14.17.0-chrome91
+    steps:
+      - checkout
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
-          record: true
-      - store_artifacts:
-          path: cypress/screenshots
-      - store_artifacts:
-          path: cypress/videos
+      - persist_to_workspace:
+          root: ./cypress/report/html
+          paths:
+            - "/*"
