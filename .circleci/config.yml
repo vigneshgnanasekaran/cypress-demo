@@ -7,11 +7,7 @@ workflows:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
-      - build:
-          working_directory: ./
-          steps:
-            - run:
-                name: Creating Dummy Artifacts
-
-            - store_artifacts:
-                path: ./cypress/reports
+      - store_artifacts:
+          path: tmp/test-results
+          destination: test-results
+      
