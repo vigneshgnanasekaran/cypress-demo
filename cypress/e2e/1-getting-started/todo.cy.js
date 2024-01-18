@@ -9,10 +9,14 @@ describe("example to-do app", () => {
       
       const href = link.attr('href');
 
-      
+      if(href=="mailto:support@undivided.io"){
+         return
+      }
       cy.request(href).then((response) => {
-        expect(response.status).to.eq(200); // Assuming a successful response code
+        expect(response.status).to.eq(200);  
       });
     });
   });
 });
+
+ 
