@@ -1,4 +1,4 @@
-version: '2.1'
+version: "2.1"
 orbs:
   cypress: cypress-io/cypress@3
 jobs:
@@ -24,7 +24,3 @@ workflows:
     jobs:
       - install-and-persist:
           name: Install & Persist To Workspace
-      - run-tests-in-parallel:
-          name: Run Tests in Parallel
-          requires:
-            - Install & Persist To Workspace
