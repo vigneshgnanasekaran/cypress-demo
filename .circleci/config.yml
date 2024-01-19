@@ -1,6 +1,16 @@
 version: "2.1"
 orbs:
   cypress: cypress-io/cypress@3
+jobs:
+  store_artifacts:
+    docker:
+      - image: cypress/base:10
+    steps:
+      - run:
+          name: Store artifacts
+          command: |
+            # Add commands to store your artifacts (e.g., reports) here
+
 workflows:
   use-my-orb:
     jobs:
