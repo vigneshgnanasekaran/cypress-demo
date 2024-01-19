@@ -1,29 +1,10 @@
 version: "2.1"
 orbs:
-  cypress: cypress-io/cypress@3
+  <orb-name>: <namespace>/<orb-name>@x.y.z
 workflows:
   use-my-orb:
     jobs:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
-
-      - run:
-          name: Create necessary directories
-          command: mkdir -p integration-tests/mochawesome-report integration-tests/cypress/videos integration-tests/cypress/screenshots
-
-      - run:
-          name: Running E2E tests with Mochawesome reporter
-          command: $(yarn bin)/cypress run --project ./integration-tests
-          environment:
-            MOCHA_FILE: integration-tests/mochawesome-report/mochawesome.json
-          when: always
-
-      - store_artifacts:
-          path: integration-tests/mochawesome-report
-
-      - store_artifacts:
-          path: integration-tests/cypress/videos
-
-      - store_artifacts:
-          path: integration-tests/cypress/screenshots
+ 
