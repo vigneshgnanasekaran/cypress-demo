@@ -1,25 +1,19 @@
 version: "2.1"
 orbs:
   cypress: cypress-io/cypress@3
+  mochawesome: cypress-io/mochawesome@1
+
 workflows:
   use-my-orb:
     jobs:
       - cypress/run:
           cypress-command: npx cypress run --browser chrome
           install-browsers: true
-          
-  # - run: mkdir -p integration-tests/test-results/junit integration-tests/cypress/videos integration-tests/cypress/screenshots
-  #     - run:
-  #         name: Running E2E tests with JUnit reporter
-  #         command: $(yarn bin)/cypress run --project ./integration-tests --reporter junit --record --key 77ffe06e-0fe2-4b33-a5ff-4dcdf9e31c91
-  #         environment: 
-  #           MOCHA_FILE: integration-tests/test-results/junit/test-results-[hash].xml
-  #         when: always
-  #     - store_test_results:
-  #         path: integration-tests/test-results
-  #     - store_artifacts:
-  #         path: integration-tests/test-results
-  #     - store_artifacts:
-  #         path: integration-tests/cypress/videos
-  #     - store_artifacts:
-  #         path: integration-tests/cypress/screenshots
+          parallel: true
+          record: true
+          # Additional configuration for Mochawesome reports
+          post-steps:
+            - mochawesome/generate:
+                format: "json"
+                outputDir: "cypress/results/mochawesome"
+  
