@@ -13,7 +13,7 @@ jobs:
           root: ~/
   run-tests-in-parallel:
     executor: cypress/default
-    parallelism: 8
+    parallelism: 1
     steps:
       - attach_workspace:
           at: ~/
