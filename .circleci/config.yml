@@ -1,4 +1,4 @@
-version: "2.1"
+version: '2.1'
 orbs:
   cypress: cypress-io/cypress@3
 jobs:
@@ -24,3 +24,4 @@ workflows:
     jobs:
       - install-and-persist:
           name: Install & Persist To Workspace
+     
