@@ -28,3 +28,15 @@ workflows:
           name: Run Tests
           requires:
             - Install & Persist To Workspace
+      - store-reports:
+          name: Store Reports
+          when: always
+          requires:
+            - Run Tests
+          steps:
+            - persist_to_workspace:
+                paths:
+                  - cypress/reports
+                root: ~/
+            - store_artifacts:
+                path: cypress/reports
