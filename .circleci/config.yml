@@ -32,7 +32,7 @@ jobs:
           name: Generate Mocha Reports
           command: |
             # Run Mocha to generate reports
-            npx cypress run --reporter mochawesome
+            npx cypress run  
 
       - persist_to_workspace:
           paths:
