@@ -1,14 +1,14 @@
 version: "2.1"
 
-orbs:
-  cypress: cypress-io/cypress@3
-
 jobs:
   install-and-run-tests:
-    executor: cypress/included
+    docker:
+      - image: cypress/base:latest
     steps:
       - checkout
-      - cypress/install
+      - run:
+          name: Install Dependencies
+          command: npm install
       - run:
           name: Run Cypress Tests
           command: npx cypress run --reporter mochawesome
