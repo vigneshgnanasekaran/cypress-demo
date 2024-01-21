@@ -1,4 +1,5 @@
 version: "2.1"
+
 orbs:
   cypress: cypress-io/cypress@3
 
@@ -34,10 +35,65 @@ jobs:
             # Run Mocha to generate reports
             npx cypress run --reporter mochawesome
 
+      - store_artifacts:
+          path: cypress/reports
+          destination: cypress-reports
+
+workflows:
+  use-my-orb:
+    jobs:
+      - install-and-persist:
+          name: Install & Persist To Workspace
+
+      - run-tests-in-parallel:
+          name: Run Tests
+          requires:
+            - Install & Persist To Workspace
+
+      - store-reports:
+          name: Store Reports
+          requires:
+            - Run Tests
+version: "2.1"
+
+orbs:
+  cypress: cypress-io/cypress@3
+
+jobs:
+  install-and-persist:
+    executor: cypress/default
+    steps:
+      - cypress/install
       - persist_to_workspace:
           paths:
-            - cypress/reports
+            - .cache/Cypress
+            - project
           root: ~/
+
+  run-tests-in-parallel:
+    executor: cypress/default
+    parallelism: 1
+    steps:
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          cypress-command: npx cypress run
+
+  store-reports:
+    docker:
+      - image: cypress/base:10
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Generate Mocha Reports
+          command: |
+            # Run Mocha to generate reports
+            npx cypress run --reporter mochawesome
+
+      - store_artifacts:
+          path: cypress/reports
+          destination: cypress-reports
 
 workflows:
   use-my-orb:
