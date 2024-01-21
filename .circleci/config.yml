@@ -42,6 +42,7 @@ jobs:
 workflows:
   use-my-orb:
     jobs:
+      - setup_remote_docker
       - install-and-persist:
           name: Install & Persist To Workspace
 
