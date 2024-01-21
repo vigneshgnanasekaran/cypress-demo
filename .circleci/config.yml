@@ -52,6 +52,5 @@ workflows:
 
       - store-reports:
           name: Store Reports
-          when: always
           requires:
             - Run Tests
