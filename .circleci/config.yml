@@ -32,11 +32,11 @@ jobs:
           name: Generate Mocha Reports
           command: |
             # Run Mocha to generate reports
-            npx cypress run  
+            npx cypress run
 
       - persist_to_workspace:
           paths:
-            - .cypress/reports/html
+            - .cypress/reports/html/index.html
           root: ~/
 
 workflows:
