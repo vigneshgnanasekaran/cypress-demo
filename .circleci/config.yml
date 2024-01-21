@@ -19,10 +19,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run:
-          name: Run Tests with Mochawesome Reporter
-          command: |
-            npx cypress run --reporter mochawesome
+      - cypress/run-tests:
+          cypress-command: npx cypress run
 
   store-reports:
     docker:
@@ -30,6 +28,12 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - run:
+          name: Generate Mocha Reports
+          command: |
+            # Run Mocha to generate reports
+            npx cypress run --reporter mochawesome
+
       - persist_to_workspace:
           paths:
             - cypress/reports
@@ -48,5 +52,6 @@ workflows:
 
       - store-reports:
           name: Store Reports
+          when: always
           requires:
             - Run Tests
