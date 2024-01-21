@@ -36,7 +36,6 @@ jobs:
             npx cypress run --reporter mochawesome
             npm install --save mochawesome
 
-
       - persist_to_workspace:
           paths:
             - cypress/reports
