@@ -6,11 +6,9 @@ jobs:
   install-and-persist:
     executor: cypress/default
     docker:
-      - image: cypress/base:10
+      - image: node:14-buster  # Switch to an image with Node.js 14
     steps:
       - checkout
-      - run: apt-get update && apt-get install -y sudo  # Install sudo
-      - run: sudo apt-get update && sudo apt-get install -y nodejs=14  # Ensure Node.js 14
       - cypress/install
       - persist_to_workspace:
           paths:
