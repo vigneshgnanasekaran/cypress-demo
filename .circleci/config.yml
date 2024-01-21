@@ -5,7 +5,11 @@ orbs:
 jobs:
   install-and-persist:
     executor: cypress/default
+    docker:
+      - image: cypress/base:10
     steps:
+      - checkout
+      - run: sudo apt-get update && sudo apt-get install -y nodejs=14  # Ensure Node.js 14
       - cypress/install
       - persist_to_workspace:
           paths:
@@ -20,7 +24,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - cypress/run-tests:
-          cypress-command: npx cypress run
+          cypress-command: npx cypress run --reporter mocha-junit-reporter --reporter-options mochaFile=cypress/reports/report.xml  # Generate JUnit report
 
   store-reports:
     docker:
@@ -28,15 +32,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run:
-          name: Generate Mocha Reports
-          command: |
-            # Run Mocha to generate reports
-            npx cypress run  
-
       - persist_to_workspace:
           paths:
-            - cypress/reports
+            - cypress/reports  # Persist reports
           root: ~/
 
 workflows:
