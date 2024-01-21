@@ -24,16 +24,23 @@ jobs:
 
   store-reports:
     docker:
-      - image: cypress/base:10
+      - image: gcc:8.1.0
+    working_directory: ~/work
     steps:
-      - attach_workspace:
-          at: ~/
+     - checkout
+      - run: make
+      - run: |
+          # tell the operating system to remove the file size limit on core dump files
+          ulimit -c unlimited
+          ./dump
       - run:
           name: Generate Mocha Reports
-          command: |
-            # Run Mocha to generate reports
-            npx cypress run --reporter mochawesome
-
+           command: |
+            mkdir -p /tmp/core_dumps
+            cp core.* /tmp/core_dumps
+          when: on_fail
+      - store_artifacts:
+          path: /tmp/core_dumps
       - persist_to_workspace:
           paths:
             - cypress/reports
