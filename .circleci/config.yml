@@ -36,7 +36,7 @@ jobs:
 
       - persist_to_workspace:
           paths:
-            - .cypress/reports/html/index.html
+            - cypress/mochawesome-report
           root: ~/
 
 workflows:
