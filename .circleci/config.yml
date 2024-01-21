@@ -27,7 +27,7 @@ jobs:
       - image: gcc:8.1.0
     working_directory: ~/work
     steps:
-     - checkout
+      - checkout
       - run: make
       - run: |
           # tell the operating system to remove the file size limit on core dump files
@@ -35,7 +35,7 @@ jobs:
           ./dump
       - run:
           name: Generate Mocha Reports
-           command: |
+          command: |
             mkdir -p /tmp/core_dumps
             cp core.* /tmp/core_dumps
           when: on_fail
@@ -47,6 +47,7 @@ jobs:
           root: ~/
 
 workflows:
+  version: 2
   use-my-orb:
     jobs:
       - install-and-persist:
@@ -55,9 +56,9 @@ workflows:
       - run-tests-in-parallel:
           name: Run Tests
           requires:
-            - Install & Persist To Workspace
+            - install-and-persist
 
       - store-reports:
           name: Store Reports
           requires:
-            - Run Tests
+            - run-tests-in-parallel
