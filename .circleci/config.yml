@@ -24,7 +24,7 @@ jobs:
 
   store-reports:
     docker:
-      - image: cypress/base:10
+      - image: cypress/base:18
     steps:
       - attach_workspace:
           at: ~/
