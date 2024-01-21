@@ -41,7 +41,7 @@ jobs:
       - run:
           name: List Mocha Reports
           command: |
-            ls -R /root/cypress/reports/html
+            ls -R /root/project/cypress/reports/html:
       - persist_to_workspace:
           paths:
             - cypress/reports/html
