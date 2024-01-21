@@ -34,10 +34,18 @@ jobs:
             # Run Mocha to generate reports
             npx cypress run
 
-      - persist_to_workspace:
-          paths:
-            - cypress/reports/html
-          root: artifact-file
+      - run:
+        name: List Workspace Contents
+        command: |
+          ls -R /root
+    - run:
+        name: List Mocha Reports
+        command: |
+          ls -R /root/cypress/reports/html
+    - persist_to_workspace:
+        paths:
+          - cypress/reports/html
+        root: ~/
 
 workflows:
   use-my-orb:
