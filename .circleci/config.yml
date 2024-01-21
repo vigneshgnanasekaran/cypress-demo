@@ -40,7 +40,7 @@ jobs:
             ls -R /root
 
       - store_artifacts:
-          path: /root/cypress/reports/html
+          path: cypress/reports/html
 
 workflows:
   use-my-orb:
