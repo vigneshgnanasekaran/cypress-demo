@@ -24,8 +24,7 @@ jobs:
 
   store-reports:
     docker:
-      - image: gcc:8.1.0
-    working_directory: ~/work
+      - image: cypress/base:10
     steps:
       - checkout
       - run: make
