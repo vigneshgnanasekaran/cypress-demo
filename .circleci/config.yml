@@ -1,4 +1,5 @@
 version: "2.1"
+
 orbs:
   cypress: cypress-io/cypress@3
 
@@ -33,6 +34,12 @@ jobs:
           command: |
             # Run Mocha to generate reports
             npx cypress run --reporter mochawesome
+
+      - run:
+          name: Copy Mocha Reports
+          command: |
+            mkdir -p /root/project/cypress/reports/html
+            cp -R /root/project/mochawesome-report/* /root/project/cypress/reports/html
 
       - persist_to_workspace:
           paths:
