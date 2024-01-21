@@ -1,6 +1,7 @@
 version: "2.1"
 orbs:
   cypress: cypress-io/cypress@3
+
 jobs:
   install-and-persist:
     executor: cypress/default
@@ -11,6 +12,7 @@ jobs:
             - .cache/Cypress
             - project
           root: ~/
+
   run-tests-in-parallel:
     executor: cypress/default
     parallelism: 1
@@ -26,15 +28,23 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
+      - run:
+          name: Generate Mocha Reports
+          command: |
+            # Run Mocha to generate reports
+            npx cypress run --reporter mochawesome
+
       - persist_to_workspace:
           paths:
             - cypress/reports
           root: ~/
+
 workflows:
   use-my-orb:
     jobs:
       - install-and-persist:
           name: Install & Persist To Workspace
+
       - run-tests-in-parallel:
           name: Run Tests
           requires:
