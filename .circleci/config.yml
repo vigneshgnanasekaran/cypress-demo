@@ -37,7 +37,7 @@ jobs:
       - persist_to_workspace:
           paths:
             - cypress/reports/html
-          root: ~/
+          root: artifact-file
 
 workflows:
   use-my-orb:
