@@ -9,7 +9,8 @@ jobs:
       - image: cypress/base:10
     steps:
       - checkout
-      - run: sudo apt-get install sudo
+      - run: apt-get update && apt-get install -y sudo  # Install sudo
+      - run: sudo apt-get update && sudo apt-get install -y nodejs=14  # Ensure Node.js 14
       - cypress/install
       - persist_to_workspace:
           paths:
