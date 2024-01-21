@@ -5,11 +5,12 @@ orbs:
 
 jobs:
   install-and-run-tests:
-    executor: cypress/default
+    executor: cypress/included
     steps:
       - checkout
       - cypress/install
-      - cypress/run:
+      - run:
+          name: Run Cypress Tests
           command: npx cypress run --reporter mochawesome
 
   store-reports:
@@ -21,8 +22,8 @@ jobs:
       - run:
           name: Generate Mocha Reports
           command: |
-            npx mochawesome-merge --reportDir cypress/reports/html --reportFilename mochawesome.json > merged-report.json
-            npx mochawesome-report-generator --reportDir cypress/reports/html --reportFilename mochawesome.json --reportTitle "Custom Title"
+            npx mochawesome-merge --reportDir cypress/reports/html > merged-report.json
+            npx mochawesome-report-generator --reportDir merged-report.json --reportFilename mochawesome.html --reportTitle "Custom Title"
             cp -r cypress/videos cypress/reports/html/videos
 
       - persist_to_workspace:
