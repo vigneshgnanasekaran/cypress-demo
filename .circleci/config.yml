@@ -38,8 +38,9 @@ jobs:
           name: List Workspace Contents
           command: |
             ls -R /root
-     - store_artifacts:
-        path: /root/cypress/reports/html
+
+      - store_artifacts:
+          path: /root/cypress/reports/html
 
 workflows:
   use-my-orb:
