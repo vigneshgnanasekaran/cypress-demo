@@ -1,41 +1,56 @@
 version: "2.1"
+orbs:
+  cypress: cypress-io/cypress@3
 
 jobs:
-  install-and-run-tests:
-    docker:
-      - image: cypress/base:latest
+  install-and-persist:
+    executor: cypress/default
     steps:
-      - checkout
-      - run:
-          name: Install Dependencies
-          command: npm install
-      - run:
-          name: Run Cypress Tests
-          command: npx cypress run --reporter mochawesome
+      - cypress/install
+      - persist_to_workspace:
+          paths:
+            - .cache/Cypress
+            - project
+          root: ~/
+
+  run-tests-in-parallel:
+    executor: cypress/default
+    parallelism: 1
+    steps:
+      - attach_workspace:
+          at: ~/
+      - cypress/run-tests:
+          cypress-command: npx cypress run
 
   store-reports:
     docker:
       - image: cypress/base:latest
     steps:
       - attach_workspace:
-          at: /root/project
+          at: ~/
       - run:
           name: Generate Mocha Reports
           command: |
-            npx mochawesome-merge --reportDir cypress/reports/html > merged-report.json
-            npx mochawesome-report-generator --reportDir merged-report.json --reportFilename mochawesome.html --reportTitle "Custom Title"
-            cp -r cypress/videos cypress/reports/html/videos
+            # Run Mocha to generate reports
+            npx cypress run --reporter mochawesome
 
       - persist_to_workspace:
           paths:
             - cypress/reports
-          root: /root/project
+          root: ~/
 
 workflows:
-  version: 2
   use-my-orb:
     jobs:
-      - install-and-run-tests
-      - store-reports:
+      - install-and-persist:
+          name: Install & Persist To Workspace
+
+      - run-tests-in-parallel:
+          name: Run Tests
           requires:
-            - install-and-run-tests
+            - Install & Persist To Workspace
+
+      - store-reports:
+          name: Store Reports
+          requires:
+            - Run Tests
