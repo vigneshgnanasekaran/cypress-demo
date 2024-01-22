@@ -1,7 +1,7 @@
-describe("example navigate app app", () => {
+describe(" navigate app app", () => {
   const articleDetails = {
     description:
-      "Verifying article text,tag, default image, and content existence for a single article ID or the latest 10 articles",
+      "checking the navigation of undivided page ",
   };
 
   beforeEach(() => {
