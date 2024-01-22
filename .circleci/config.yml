@@ -20,7 +20,7 @@ jobs:
       - attach_workspace:
           at: ~/
       - cypress/run-tests:
-          cypress-command: npx cypress run  
+          cypress-command: npx cypress run || true
 
   store-reports:
     docker:
@@ -32,7 +32,7 @@ jobs:
           name: Generate Mocha Reports
           command: |
             # Run Mocha to generate reports
-             npx cypress run --exit-code || true
+             npx cypress run
 
       - run:
           name: List Workspace Contents
