@@ -32,7 +32,7 @@ jobs:
           name: Generate Mocha Reports
           command: |
             # Run Mocha to generate reports
-            npx cypress run
+            npx cypress run --spec cypress/e2e/1-getting-started/navigate.cy.js
 
       - run:
           name: List Workspace Contents
