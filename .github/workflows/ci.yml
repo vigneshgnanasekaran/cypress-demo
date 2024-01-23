@@ -9,17 +9,26 @@ jobs:
       - uses: cypress-io/github-action@v6
         with:
           browser: chrome 
+      - name: Run Cypress tests
+        run: |
+          npm install # Ensure necessary packages are installed
+          npm run cypress:run # Adjust the script based on your project setup
+      - name: Generate Mocha report
+        run: |
+          npm install mocha-multi-reporters
+          npx mocha --reporter mocha-multi-reporters --reporter-options configFile=config/mocha-reporter-config.json # Adjust the path and config file based on your project setup
       - uses: actions/upload-artifact@v4
-        # add the line below to store screenshots only on failures
-        # if: failure()
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+          if-no-files-found: ignore
       - uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
           path: cypress/videos
-          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
-
-        
+          if-no-files-found: ignore
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mocha-report
+          path: mochareports # Adjust the path based on your project setup
+          if-no-files-found: ignore
