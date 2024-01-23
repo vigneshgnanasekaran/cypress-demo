@@ -8,11 +8,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: cypress-io/github-action@v6
         with:
-          browser: chrome 
+          browser: chrome
       - name: Run Cypress tests
         run: |
           npm install # Ensure necessary packages are installed
-          npm run cypress:run # Adjust the script based on your project setup
+          npx cypress run # Adjust the script based on your project setup
       - name: Generate Mocha report
         run: |
           npm install mocha-multi-reporters
