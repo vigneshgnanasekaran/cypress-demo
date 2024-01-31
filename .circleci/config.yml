@@ -45,10 +45,10 @@ jobs:
 workflows:
   use-my-orb:
     jobs:
-      - install-and-persist:
+      - install-dependency:
           name: Install & Persist To Workspace
 
-      - run-tests-in-parallel:
+      - run-tests:
           name: Run Tests
           requires:
             - Install & Persist To Workspace
