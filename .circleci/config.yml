@@ -3,7 +3,7 @@ orbs:
   cypress: cypress-io/cypress@3
 
 jobs:
-  install-and-persist:
+  install-dependency:
     executor: cypress/default
     steps:
       - cypress/install
