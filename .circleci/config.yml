@@ -13,7 +13,7 @@ jobs:
             - project
           root: ~/
 
-  run-tests-in-parallel:
+  run-tests:
     executor: cypress/default
     parallelism: 1
     steps:
